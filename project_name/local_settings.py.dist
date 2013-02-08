@@ -1,0 +1,20 @@
+from settings import *
+
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+INTERNAL_IPS = ('127.0.0.1',)
+INSTALLED_APPS += ('debug_toolbar',)
+MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+}
+
+from urls import urlpatterns
+from django.conf.urls.static import static
+MEDIA_ROOT = APP_DIR + '/media/'
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+
+CELERY_ALWAYS_EAGER = True

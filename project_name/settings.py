@@ -21,7 +21,7 @@ DATABASES = {
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.environ.get('TIME_ZONE', 'UTC')
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -61,7 +61,7 @@ STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    APP_DIR + '/static',
+    APP_DIR + '/{{ project_name }}/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -114,7 +114,17 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     'south',
+    'storages',
 )
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

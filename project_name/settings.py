@@ -2,7 +2,7 @@ import os
 
 import dj_database_url
 
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DJANGO_ENV', 'production') == 'development'
 TEMPLATE_DEBUG = DEBUG
 
 APP_DIR = os.getcwd()
